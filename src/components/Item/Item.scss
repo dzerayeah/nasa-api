@@ -1,0 +1,21 @@
+@import "../../App.scss";
+
+.item {
+  height: 100px;
+  border-radius: 5px;
+  width: 100px;
+  margin-right: 14px;
+  margin-bottom: 14px;
+  &:nth-child(5n) {
+    margin-right: 0;
+  }
+  @media screen and (max-width: $xs) {
+    margin-right: 0;
+    flex: 0 0 100px;
+  }
+  &__img {
+    width: 100px;
+    height: 100px;
+    border-radius: 5px;
+  }
+}

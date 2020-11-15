@@ -1,0 +1,30 @@
+.date-picker {
+  width: 100%;
+  padding: 5px 15px;
+  background-color: #fff;
+  height: 35px;
+  width: 227px;
+  margin-bottom: 24px;
+  cursor: pointer;
+  &__label {
+    font-size: 10px;
+    line-height: 12px;
+    color: #9f9f9f;
+  }
+  &__input {
+    font-size: 22px;
+    line-height: 26px;
+    color: #585555;
+    cursor: pointer;
+  }
+  &__icon {
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 36px;
+    height: 36px;
+    position: absolute;
+    right: 6px;
+    top: 5px;
+  }
+}

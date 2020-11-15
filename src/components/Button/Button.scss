@@ -1,0 +1,16 @@
+.button-wrapper {
+  &__input {
+    width: 257px;
+    height: 47px;
+    background: #4260ff;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 22px;
+    line-height: 26px;
+    color: #ffffff;
+    &:hover {
+      background-color: rgba(66, 96, 255, 0.8);
+    }
+  }
+}
