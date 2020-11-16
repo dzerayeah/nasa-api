@@ -2,19 +2,19 @@ import Select, { components } from "react-select";
 import React from "react";
 const { ValueContainer, Placeholder } = components;
 
-const DropdownIndicator = (props) => {
+const DropdownIndicator = React.forwardRef((props, ref) => {
   return (
     components.DropdownIndicator && (
-      <components.DropdownIndicator {...props}>
+      <components.DropdownIndicator {...props} forwardedRef={ref}>
         <img src={"./dropdown.svg"} alt="dropdown" />
       </components.DropdownIndicator>
     )
   );
-};
+});
 
-const CustomValueContainer = ({ children, ...props }) => {
+const CustomValueContainer = React.forwardRef(({ children, ...props }, ref) => {
   return (
-    <ValueContainer {...props}>
+    <ValueContainer {...props} forwardedRef={ref}>
       <Placeholder {...props} isFocused={props.isFocused}>
         {props.selectProps.placeholder}
       </Placeholder>
@@ -23,11 +23,12 @@ const CustomValueContainer = ({ children, ...props }) => {
       )}
     </ValueContainer>
   );
-};
+});
 
-export default (props) => (
+export default React.forwardRef((props, ref) => (
   <Select
     {...props}
+    forwardedRef={ref}
     components={{ DropdownIndicator, ValueContainer: CustomValueContainer }}
     styles={{
       container: (base) => ({
@@ -89,4 +90,4 @@ export default (props) => (
       }),
     }}
   />
-);
+));

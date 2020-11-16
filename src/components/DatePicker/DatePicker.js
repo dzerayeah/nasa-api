@@ -4,14 +4,14 @@ import "react-datepicker/dist/react-datepicker.css";
 import "./DatePicker.scss";
 
 const DatePickerNasa = (props) => {
-  const ExampleCustomInput = ({ value, onClick }) => (
-    <div className="date-picker">
+  const CustomInput = ({ value, onClick }) => (
+    <div className="date-picker" onClick={onClick}>
       <div className="date-picker__label">Земная дата</div>
       <div
         className="date-picker__icon"
         style={{ backgroundImage: "url(./datepicker.svg)" }}
       />
-      <div className="date-picker__input" onClick={onClick}>
+      <div className="date-picker__input">
         {value}
       </div>
     </div>
@@ -20,7 +20,7 @@ const DatePickerNasa = (props) => {
     <DatePicker
       {...props}
       dateFormat="yyyy-MM-dd"
-      customInput={<ExampleCustomInput />}
+      customInput={<CustomInput />}
     />
   );
 };
