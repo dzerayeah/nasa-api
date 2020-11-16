@@ -8,16 +8,15 @@ import Button from "./components/Button";
 import { NASA_API_URL, NASA_API_KEY } from "./config";
 
 const App = () => {
-  const [startDate, setStartDate] = useState(new Date());
+  const [startDate, setStartDate] = useState(new Date("2020-9-27"));
   const [todayImg, setTodayImg] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [rover, setRover] = useState({
     value: "curiosity",
     label: "Curiosity",
   });
   const [roverCamera, setRoverCamera] = useState({
-    value: "fhaz",
-    label: "Front Hazard Avoidance Camera",
+    value: "navcam",
+    label: "Navigation Camera",
   });
 
   const nasaApodUrl = `${NASA_API_URL}planetary/apod?date=${
@@ -43,26 +42,45 @@ const App = () => {
     { value: "opportunity", label: "Opportunity" },
     { value: "spirit", label: "Spirit" },
   ];
-  
+
   const roverCamerasOptions = [
     { value: "fhaz", label: "Front Hazard Avoidance Camera" },
     { value: "rhaz", label: "Rear Hazard Avoidance Camera" },
-    { value: "mast", label: "Mast Camera", isDisabled: rover.value !== 'curiosity' ? true : false },
-    { value: "chemcam", label: "Chemistry and Camera Complex", isDisabled: rover.value !== 'curiosity' ? true : false },
-    { value: "mahli", label: "Mars Hand Lens Imager", isDisabled: rover.value !== 'curiosity' ? true : false },
-    { value: "mardi", label: "Mars Descent Imager", isDisabled: rover.value !== 'curiosity' ? true : false },
+    {
+      value: "mast",
+      label: "Mast Camera",
+      isDisabled: rover.value !== "curiosity" ? true : false,
+    },
+    {
+      value: "chemcam",
+      label: "Chemistry and Camera Complex",
+      isDisabled: rover.value !== "curiosity" ? true : false,
+    },
+    {
+      value: "mahli",
+      label: "Mars Hand Lens Imager",
+      isDisabled: rover.value !== "curiosity" ? true : false,
+    },
+    {
+      value: "mardi",
+      label: "Mars Descent Imager",
+      isDisabled: rover.value !== "curiosity" ? true : false,
+    },
     { value: "navcam", label: "Navigation Camera" },
-    { value: "pancam", label: "Panoramic Camera", isDisabled: rover.value === 'curiosity' ? true : false },
+    {
+      value: "pancam",
+      label: "Panoramic Camera",
+      isDisabled: rover.value === "curiosity" ? true : false,
+    },
     {
       value: "minites",
       label: "Miniature Thermal Emission Spectrometer (Mini-TES)",
-      isDisabled: rover.value === 'curiosity' ? true : false
+      isDisabled: rover.value === "curiosity" ? true : false,
     },
   ];
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setIsSubmitting(true);
     try {
       axios.get(nasaImagesUrl).then((res) => {
         setImages(res.data.photos);
@@ -76,44 +94,50 @@ const App = () => {
       });
     } catch (err) {
       console.log(err);
-    } finally {
-      setIsSubmitting(false);
     }
   };
 
   useEffect(() => {
-    if (images.length === 0) {
-      axios
-        .get(nasaImagesUrl)
-        .then((res) => {
-          setImages(res.data.photos);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
+    const fetchData = async () => {
+      try {
+        const result = await axios(
+          nasaImagesUrl
+        );
+        setImages(result.data.photos);
+      } catch (err) {
+        console.log(err)
+      }
+    };
+ 
+    fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    if (todayImg.length === 0) {
-      axios
-        .get(nasaApodUrl)
-        .then((res) => {
-          setTodayImg(res.data.url);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
+    const fetchData = async () => {
+      try {
+        const result = await axios(
+          nasaApodUrl
+        );
+        setTodayImg(result.data.url);
+      } catch (err) {
+        console.log(err)
+      }
+    };
+ 
+    fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
-    <div className="app" style={{ backgroundImage: "url(" + todayImg + ")" }}>
+    <div className="app" style={{backgroundImage: `url(${todayImg})`}}>
       <div className="content">
         <div className="content__images">
-          {images.map((img) => (
-            <Item img_src={img.img_src} key={img.id} />
-          ))}
+          {images.length ? (
+            images.map((img) => <Item img_src={img.img_src} key={img.id} />)
+          ) : (
+            <div className="content__not-found">Изображений не найдено</div>
+          )}
         </div>
         <div className="content__form">
           <form onSubmit={handleSubmit}>

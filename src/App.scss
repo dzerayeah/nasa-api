@@ -17,11 +17,12 @@ $xs: 375px;
     display: flex;
     align-items: flex-start;
     @media screen and (max-width: $md) {
-      width: 627px;
-      height: 774px;
+      max-width: 627px;
+      height: auto;
       flex-wrap: wrap;
       margin-top: 130px;
       margin-bottom: 130px;
+      width: 100%;
     }
     @media screen and (max-width: $xs) {
       background: none;
@@ -43,6 +44,11 @@ $xs: 375px;
         justify-content: space-between;
       }
     }
+    &__not-found {
+      font-size: 22px;
+      line-height: 26px;
+      color: #000;
+    }
     &__form {
       width: 257px;
       padding: 37px 29px 23px 0;
@@ -52,7 +58,7 @@ $xs: 375px;
       }
       @media screen and (max-width: $xs) {
         order: 1;
-        padding: 0 60px;
+        padding: 0 calc(50% - 128px);
         width: auto;
       }
       form {

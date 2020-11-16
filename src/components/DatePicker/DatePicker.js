@@ -3,7 +3,7 @@ import React from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import "./DatePicker.scss";
 
-const DatePickerNasa = ({ ...props }) => {
+const DatePickerNasa = (props) => {
   const ExampleCustomInput = ({ value, onClick }) => (
     <div className="date-picker">
       <div className="date-picker__label">Земная дата</div>

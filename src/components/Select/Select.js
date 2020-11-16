@@ -25,7 +25,7 @@ const CustomValueContainer = ({ children, ...props }) => {
   );
 };
 
-export default ({ ...props }) => (
+export default (props) => (
   <Select
     {...props}
     components={{ DropdownIndicator, ValueContainer: CustomValueContainer }}
